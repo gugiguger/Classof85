@@ -2,7 +2,7 @@ import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
@@ -15,9 +15,7 @@ export default class Registration extends React.Component {
     submit(e) {
         e.preventDefault();
         axios
-            .post("/register", {
-                first: this.first,
-                last: this.last,
+            .post("/login", {
                 email: this.email,
                 password: this.password
             })
@@ -32,27 +30,17 @@ export default class Registration extends React.Component {
                 }
             })
             .catch(function(err) {
-                console.log("err in axios post : ", err);
+                console.log("err in axios post: ", err);
             });
     }
     render() {
         return (
-            <div className="register-comp">
+            <div className="login-comp">
                 {this.state.error && (
                     <div className="error">Something went wrong!</div>
                 )}
-                <h2>Registration</h2>
-                <form id="regForm">
-                    <input
-                        name="first"
-                        placeholder="first name"
-                        onChange={this.handleChange}
-                    />
-                    <input
-                        name="last"
-                        placeholder="last name"
-                        onChange={this.handleChange}
-                    />
+                <h2>Log in</h2>
+                <form id="loginForm">
                     <input
                         name="email"
                         placeholder="email"
@@ -64,11 +52,10 @@ export default class Registration extends React.Component {
                         type="password"
                         onChange={this.handleChange}
                     />
-                    <button onClick={this.submit}>Register</button>
+                    <button onClick={this.submit}>Log in</button>
                 </form>
                 <p>
-                    Already have an account? Log in{" "}
-                    <Link to="/login"> here</Link>
+                    Not registered yet? Join <Link to="/register"> here</Link>
                 </p>
             </div>
         );

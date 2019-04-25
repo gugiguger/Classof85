@@ -11,3 +11,11 @@ module.exports.addUser = (first, last, email, password) => {
         [first, last, email, password]
     );
 };
+
+module.exports.getUserInfo = function(email) {
+    return db.query(
+        `SELECT * FROM users
+        WHERE email = $1`,
+        [email]
+    );
+};

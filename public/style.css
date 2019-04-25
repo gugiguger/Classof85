@@ -1,3 +1,29 @@
 * {
     background: salmon;
 }
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-comp,
+.login-comp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#regForm {
+    width: 15em;
+    display: flex;
+    flex-direction: column;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+}
+input {
+    margin: 5px;
+}

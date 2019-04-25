@@ -8,7 +8,7 @@ let elem;
 if (location.pathname == "/welcome") {
     elem = <Welcome />;
 } else {
-    elem = <div>My Social Network</div>;
+    elem = <div>IMAAAAAAAAGE</div>;
 }
 
 ReactDOM.render(elem, document.querySelector("main"));
