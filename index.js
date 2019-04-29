@@ -6,6 +6,11 @@ const bcrypt = require("./bcrypt");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const csurf = require("csurf");
+const multer = require('multer');
+const uidSafe = require('uid-safe');
+const path = require('path');
+const s3 = require('./s3');
+const config = require('./config');
 
 app.use(compression());
 
@@ -27,8 +32,7 @@ app.use(
     })
 );
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+// parse application
 app.use(bodyParser.json());
 
 // static file
@@ -41,6 +45,25 @@ app.use(function(req, res, next) {
     res.cookie("mytoken", req.csrfToken());
     next();
 });
+
+var diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+var uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
+
 
 ////////////////////////////////////////////////////////////////
 /////////////////WELCOME ROUTE//////////////////////////////////
@@ -84,7 +107,6 @@ app.post("/login", (req, res) => {
     db.getUserInfo(req.body.email)
         .then(result => {
             req.session.email = result.rows[0].email;
-            console.log("aaaaaaaaaaaa", req.session.email);
             if (result.rows[0]) {
                 userId = result.rows[0].id;
                 return bcrypt.compare(
@@ -105,6 +127,39 @@ app.post("/login", (req, res) => {
             res.json({ success: false });
         });
 });
+
+app.post("/upload", uploader.single('file'), s3.upload, function(req, res){
+    let userId = req.session.userId;
+    db.addImage(
+        config.s3Url + req.file.filename,
+        userId
+    ).then(
+        ({rows}) => {
+            res.json(rows[0]);
+        }
+    );
+});
+
+app.get('/user', (req, res) => {
+    let userId = req.session.userId;
+    db.getUserProfile(userId).then(dbResult => {
+        // console.log("dbResult.rows[0]: ", dbResult.rows[0]);
+        res.json(dbResult.rows[0]);
+    }).catch(err => {
+        console.log("error in get/user: ", err);
+    });
+});
+
+app.post('/bio', (req, res) => {
+    var userId = req.session.userId;
+    // console.log('req.body', req.body);
+    db.addBio(req.body.bioText, userId).then(
+        ({rows}) => {
+            res.json(rows[0]);
+        }
+    );
+});
+
 
 app.get("/logout", (req, res) => {
     req.session.destroy;

@@ -10,14 +10,8 @@ export default class Welcome extends React.Component {
                 <div className="start">My social Network</div>
                 <HashRouter>
                     <div>
-                        <Route path="/register" component={Registration} />
+                        <Route exact path="/" component={Registration} />
                         <Route path="/login" component={Login} />
-                        <h3>
-                            <Link to="/register"> Registration </Link>
-                        </h3>
-                        <h3>
-                            <Link to="/login"> Login </Link>
-                        </h3>
                     </div>
                 </HashRouter>
             </div>

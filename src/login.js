@@ -55,7 +55,7 @@ export default class Login extends React.Component {
                     <button onClick={this.submit}>Log in</button>
                 </form>
                 <p>
-                    Not registered yet? Join <Link to="/register"> here</Link>
+                    Not registered yet? Join <Link to="/"> here</Link>
                 </p>
             </div>
         );

@@ -19,3 +19,28 @@ module.exports.getUserInfo = function(email) {
         [email]
     );
 };
+
+module.exports.getUserProfile = function(userId) {
+    return db.query(
+        `SELECT users.first AS first, users.last AS last, users.id AS id, images.url AS url, bio.bio AS bio
+        FROM users
+        LEFT JOIN images
+        ON users.id = images.user_id
+        LEFT JOIN bio
+        ON users.id = bio.user_id
+        WHERE users.id = $1`,
+        [userId]
+    );
+};
+
+
+module.exports.addImage = function(url, user_id){
+    return db.query(
+        `INSERT INTO images (url, user_id)
+        VALUES ($1, $2)
+        ON CONFLICT (user_id)
+        DO UPDATE SET url = $1
+        RETURNING url`,
+        [url, user_id]
+    );
+};
