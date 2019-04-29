@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "./axios";
+import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
-import { Profile } from "./profile";
-import { Route } from "react-router-dom";
-
+import Profile from "./profile";
+import BioEditor from "./bioeditor";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -61,29 +61,42 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <div className="main-container">
+            <div>
+                <Profile
+                    id={this.state.id}
+                    image={this.state.image}
+                    first={this.state.first}
+                    last={this.state.last}
+                    email={this.state.email}
+                    bio={this.state.bio}
+                    profilePicComponent=<ProfilePic
+                        profilePic={this.state.image}
+                        first={this.state.first}
+                        last={this.state.last}
+                        email={this.state.email}
+                        clickHandler={() =>
+                            this.setState({ uploaderIsVisible: true })
+                        }
+                    />
+                    bioEditor=<BioEditor
+                        first={this.state.first}
+                        last={this.state.last}
+                        email={this.state.email}
+                        bio={this.state.bio}
+                        getBio={bio => {
+                            this.setState({ bio: bio });
+                        }}
+                    />
+                />
                 {this.state.uploaderIsVisible && (
-                    <Uploader updateProfileUrl={this.updateProfileUrl} />
+                    <Uploader
+                        setImage={url => this.setState({ image: url })}
+                        clickHandler={() =>
+                            this.setState({ uploaderIsVisible: false })
+                        }
+                    />
                 )}
-
-                    <div>
-                        <Route
-                            exact
-                            path="/"
-                            render={() => (
-                                <Profile
-                                    id={this.state.id}
-                                    first={this.state.first}
-                                    last={this.state.last}
-                                    url={this.state.url}
-                                    handleShowUploader={this.handleShowUploader}
-                                    bio={this.state.bio}
-                                    updateUserBio={this.updateUserBio}
-                                />
-                            )}
-                        />
-                    </div>
-
+                )
             </div>
         );
     }
