@@ -63,7 +63,7 @@ export default class Bioeditor extends React.Component {
                             name="textarea"
                             placeholder="Enter Bio Here"
                             onChange={this.handleChange}
-                        />{" "}
+                        />
                         <button onClick={this.updateBio}>Save Bio</button>
                     </div>
                 )}

@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "./axios";
-import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
-import Profile from "./profile";
-import BioEditor from "./bioeditor";
+import { Profile } from "./profile";
+import { BrowserRouter, Route } from "react-router-dom";
+import OtherProfile from "./otherprofile";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -13,6 +13,7 @@ export default class App extends React.Component {
         };
         this.handleShowUploader = this.handleShowUploader.bind(this);
         this.updateProfileUrl = this.updateProfileUrl.bind(this);
+        this.updateUserBio = this.updateUserBio.bind(this);
     }
 
     handleShowUploader() {
@@ -61,42 +62,39 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <div>
-                <Profile
-                    id={this.state.id}
-                    image={this.state.image}
-                    first={this.state.first}
-                    last={this.state.last}
-                    email={this.state.email}
-                    bio={this.state.bio}
-                    profilePicComponent=<ProfilePic
-                        profilePic={this.state.image}
-                        first={this.state.first}
-                        last={this.state.last}
-                        email={this.state.email}
-                        clickHandler={() =>
-                            this.setState({ uploaderIsVisible: true })
-                        }
-                    />
-                    bioEditor=<BioEditor
-                        first={this.state.first}
-                        last={this.state.last}
-                        email={this.state.email}
-                        bio={this.state.bio}
-                        getBio={bio => {
-                            this.setState({ bio: bio });
-                        }}
-                    />
-                />
+            <div className="main-container">
                 {this.state.uploaderIsVisible && (
-                    <Uploader
-                        setImage={url => this.setState({ image: url })}
-                        clickHandler={() =>
-                            this.setState({ uploaderIsVisible: false })
-                        }
-                    />
+                    <Uploader updateProfileUrl={this.updateProfileUrl} />
                 )}
-                )
+                <BrowserRouter>
+                    <div>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Profile
+                                    id={this.state.id}
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    url={this.state.url}
+                                    handleShowUploader={this.handleShowUploader}
+                                    bio={this.state.bio}
+                                    updateUserBio={this.updateUserBio}
+                                />
+                            )}
+                        />
+                        <Route
+                            path="/user/:id"
+                            render={props => (
+                                <OtherProfile
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                />
+                            )}
+                        />
+                    </div>
+                </BrowserRouter>
             </div>
         );
     }

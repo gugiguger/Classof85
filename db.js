@@ -44,3 +44,14 @@ module.exports.addImage = function(url, user_id){
         [url, user_id]
     );
 };
+
+module.exports.addBio = function(bio, user_id) {
+    return db.query(
+        `INSERT INTO bio (bio, user_id)
+        VALUES ($1, $2)
+        ON CONFLICT (user_id)
+        DO UPDATE SET bio = $1
+        RETURNING bio`,
+        [bio, user_id]
+    );
+};
