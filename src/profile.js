@@ -1,23 +1,36 @@
-import React from "react";
-import Bioeditor from "./bioeditor";
-import ProfilePic from "./profilepic";
+import React from 'react';
+import ProfPic from './profile_pic';
+import Bio from './bio';
 
-export function Profile(props) {
-    return (
-        <div className="profile">
-            <div className="profile-components">
-                <ProfilePic
-                    first={props.first}
-                    last={props.last}
-                    url={props.url}
-                    handleShowUploader={props.handleShowUploader}
-                    size="large"
-                />
-                <Bioeditor
-                    bio={props.bio}
-                    updateUserBio={props.updateUserBio}
-                />
+
+export default class Profile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    render() {
+        return (
+            <div>
+                <div className= 'userProfile'>
+                    <div className='myConnect'>
+                        <div className='userName'>{this.props.fname} {this.props.sname}'s profile</div>
+                        <div id='pic'>
+                            <ProfPic
+                                pic = {this.props.pic}
+                                displayUploader = {this.props.displayUploader}
+                            />
+                        </div>
+                    </div>
+                    <div id='bio'>
+                        <Bio
+                            bio = {this.props.bio}
+                            setBio = {this.props.setBio}
+                            displayEditBio = {this.props.displayEditBio}
+                            visibleEditBio= {this.props.visibleEditBio}
+                        />
+                    </div>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }

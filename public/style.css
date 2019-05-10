@@ -1,30 +1,720 @@
 * {
-    background: salmon;
-    font-family: "VT323", monospace;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 13px;
 }
 
-.welcome {
+body {
+    background: #5454FE;
+    color: #AAAAAA;
+    width: 100%;
+    height: 100%;
+}
+
+.menubar {
+    background: #F2E852;
+    display: flex;
+    color: #000000;
+    padding-left: 20px;
+}
+.menubar .menu-item {
+    padding: 1px 20px;
+    cursor: pointer;
+}
+.menubar .menu-item:hover {
+    background: #000000;
+    color: #AAAAAA;
+}
+.menubar .right {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end
+}
+
+.menu {
+    display: none;
+}
+.menubar .menu-item:hover .menu {
+    display: block;
+    z-index: 11;
+    background: #AAAAAA;
+    position: absolute;
+    margin-left: -20px;
+    margin-top: 1px;
+    color: #000000;
+    box-shadow: 20px 20px 0 #000000;
+    padding: 0;
+    min-width: 220px;
+}
+.menu .menu-content {
+    border: 2px solid #000000;
+    margin: 10px 6px;
+    padding: 10px 6px;
+}
+.menu .menu-content p {
+    padding: 1px 6px 1px 10px;
+}
+.menu .menu-content p:hover {
+    background: #000000;
+    color: #AAAAAA;
+}
+
+.link {
+    padding: 1px 10px 1px 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.link:hover {
+    background: #000000;
+    color: #AAAAAA;
+}
+
+.menu .menu-content hr {
+    border: 1px solid #000000;
+    margin: 10px -6px;
+}
+
+.title {
+    z-index: 10;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+}
+.title hr {
+    border: 1px solid #AAAAAA;
+    flex-grow: 1;
+    align-self: center;
+}
+.title p a {
+    background: #AAAAAA;
+    color: #0000AA;
+    padding: 0 15px;
+}
+
+hr.title {
+    z-index: 9;
+    height: 10px;
+    border: 2px solid #AAAAAA;
+    border-bottom: none;
+    margin: -10px 4px 0 4px;
+    margin-top: -10px;
+}
+
+.title-border {
     display: flex;
     flex-direction: column;
+    flex-shrink: 1;
+    padding: 0 5px;
+
+}
+.title-border .title {
+    background: #AAAAAA;
+    color: #0000AA;
+    align-self: center;
+    padding: 0 10px;
+}
+.title-border .container {
+    display: flex;
+    border: 2px solid #AAAAAA;
+    border-bottom: none;
+    flex-shrink: 1;
+    margin-top: -10px;
+    padding: 10px 0px 0 5px;
+    justify-content: center;
+}
+.scroll-content {
+    flex-shrink: 1;
+    padding: 5px;
+    height: 90vh;
+}
+
+.welcomeLogo img {
+    width: 20%;
+}
+
+.desktopIcon {
+    position: relative;
+    top: -40%;
+    right: 0%;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.icon {
+    margin: 10px;
+}
+
+.icon>p {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.icon>img{
+    width: 70px;
+    height: 70px;
+}
+
+
+.img-icon {
+    width: 70px;
+    height: 70px;
+    filter: grayscale(80%);
+}
+
+.card-container {
+    display: flex;
     justify-content: center;
 }
 
-.register-comp,
-.login-comp {
+.card {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    background: white;
+    width: 50vw;
+    height: 50vh;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-card{
+    position: absolute;
+    top: 8%;
+    left: 24%;
+    background: white;
+    width: 53vw;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.app-content{
+    display: flex;
+    justify-content: center;
+}
+
+.userName{
+    margin: 10px;
+    font-size: 14px;
+    color: black;
+}
+
+.myConnect{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-#regForm {
-    width: 15em;
+
+#pic{
+    margin-top: 0;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.regTitle {
+    color: black;
+    font-size: 11pt;
+    line-height: 20px;
+    text-align: center;
+    width: 100%;
+    height: 20px;
+    border-top: 1px solid #3e3c3d;
+    border-bottom: 4px solid black;
+    user-select: none;
+    cursor: default;
+}
+.buttons {
+    padding-left: 8px;
+    padding-top: 3px;
+    float: left;
+    line-height: 0px;
+
+}
+
+.close {
+    background: #ff5c5c;
+    font-size: 9pt;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #e33e41;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.resize {
+    background: #ffbd4c;
+    font-size: 9pt;
+    line-height: 11px;
+    margin-left: 4px;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #e09e3e;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.expand {
+    background: #00ca56;
+    font-size: 9pt;
+    line-height: 11px;
+    margin-left: 6px;
+    width: 11px;
+    height: 11px;
+    border: 1px solid #14ae46;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.content {
+    padding: 2px;
+}
+
+.white
+{
+    color: black;
+    margin-right: 20px;
+}
+
+#regTitle {
+    font-size: 14px;
+    padding: 1px;
+}
+
+
+.forms {
+    margin: 6px 0;
+}
+
+.panel {
+    padding: 10px 20px;
+    border: 3px solid rgba(0,0,0,0.75);
+    background: white;
+}
+
+.center {
+    justify-content: center;
+}
+.center-x {
+    align-items: center;
+}
+
+.column {
     display: flex;
     flex-direction: column;
 }
 
-#loginForm {
+
+input {
+    border: none;
+    outline: none;
+    padding: 2px;
+    background: #AAAAAA;
+    font-family: "Lucida Console";
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.content2 {
+    padding: 20px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    border-bottom: none;
+    border-top: none;
+    overflow-y: auto;
+}
+
+
+.regisForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    margin: 6px 0;
+}
+
+.regLabel {
+    text-indent: 2px;
+}
+
+button {
+    background-color: darkgrey;
+    width: 10em;
+    border-right-color: dimgrey;
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 0.75);
+    padding: 5px;
+    font-family: "VT323", monospace;
+    text-align: center;
+    margin-top: 7px;
+    font-size: 16px;
+}
+
+button:hover{
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+}
+button:active{
+    background-color: darkgrey;
+    color: black;
+    border-left-color: dimgrey;
+    border-top-color: dimgrey;
+    border-bottom-color: white;
+    border-right-color: white;
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+}
+
+.regisLink {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 17px;
+}
+
+.regisLink>a{
+    padding: 12px;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginLink {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 17px;
+}
+
+.loginLink>a{
+    padding:12px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    background: #52F26A;
+    color: #000000;
+    padding: 1px 0;
+    width: 100%;
+}
+
+
+.headerLogo img {
+    height: 30px
+
+}
+
+.profPic-container {
+    display: flex;
+    justify-content: center;
+}
+
+.profPic-wrapper{
+    height: 150px;
+    width: 150px;
+}
+
+.profPic-wrapper img{
+    height: 150px;
+    width: 150px;
+}
+
+.profPic-card {
+    left: 25%;
+    background: white;
+    width: 17vw;
+    position: relative;
+    top: 3em;
+    right: -29vw;
+    height: 24vh;
+    border: 3px solid black;
     display: flex;
     flex-direction: column;
 }
-input {
-    margin: 5px;
+
+.main-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #AAAAAA;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.userProfile{
+    display: flex;
+    flex-direction: column;
+}
+
+
+#bio {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.otherProfile img {
+    border-radius: .25em;
+    weight: 250px;
+    height: 250px;
+}
+
+.otherProfile #bioLink {
+    visibility: hidden;
+}
+
+.bioInput{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.bio{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 13px;
+}
+
+#bioDesc {
+    padding: 10px;
+    color: black;
+}
+
+#bioLink>a {
+    cursor: pointer;
+}
+
+#bioLink>a:hover {
+    background: #000000;
+    color: #AAAAAA;
+}
+
+
+.modalicious {
+    background: white;
+    width: 24em;
+    height: 9em;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px solid black;
+    display: flex;
+    flex-direction: column;
+    z-index: 2000;
+}
+
+.modalicious h4{
+    height: 12px;
+    margin-top: 0;
+    margin-left: 94%;
+    cursor: pointer;
+}
+
+.modalicious label {
+    border-color: transparent;
+}
+
+.modalicious button {
+    border-color: transparent;
+    margin-top: 1px;
+}
+
+.inputUpload {
+    width: 13em;
+    background: transparent;
+    margin: 16px;
+}
+
+.uploadForm {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+}
+.online {
+    display: flex;
+    flex-direction: column;
+}
+
+.usersOnline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.usersOnline img {
+    height: 150px;
+    width: 150px;
+}
+
+.usersOnline p {
+    color: black;
+    text-decoration-line: none;
+}
+
+#pic>img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+#users {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.userPics {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 180px;
+    justify-content: center;
+    align-items: center;
+}
+
+.userPics img {
+    width: 120px;
+    height: 160px;
+}
+
+.userPics p {
+    margin-top: 10px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.95);
+}
+
+.friends button {
+    font-size: 0.85em;
+}
+
+.wannabes button {
+    font-size: 0.85em;
+    margin-left: 15px
+}
+
+
+.myConnect,
+.otherConnect {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.otherProfile img {
+    border-radius: .25em;
+    weight: 250px;
+    height: 250px;
+}
+
+
+
+.otherProfile #bioDesc{
+    text-align:center;
+    vertical-align: middle;
+}
+
+.otherProfile #bioLink {
+    visibility: hidden;
+}
+
+.connections {
+    display: flex;
+    flex-direction: column;
+}
+
+.friends,
+.wannabes {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#connection {
+    text-align: center;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.chatFrame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#chatMessages {
+    overflow-x: hidden;
+    background: white;
+}
+
+.chatFrame textarea {
+    background: white;
+    border: 2px solid black;
+    border-top: none;
+}
+
+.chatMsg {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.chatMsg img {
+    height: 75px;
+    width: 75px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.senderData #senderName {
+    color: rgb(66,60,178);
+}
+
+.senderData #senderMsg {
+    font-size: 0.95em;
+    color: rgba(0,0,0, 0.8);
+}
+
+.senderData #msgDate {
+    font-size: 0.85em;
+    margin-left: 6px;
+    color: rgba(66,60,178,0.3);
+}
+
+.nameAndDate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 10px;
 }

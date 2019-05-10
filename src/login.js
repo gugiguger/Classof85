@@ -1,6 +1,6 @@
-import React from "react";
-import axios from "./axios";
-import { Link } from "react-router-dom";
+import React from 'react';
+import axios from './axios';
+import { Link } from 'react-router-dom';
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -14,49 +14,33 @@ export default class Login extends React.Component {
     }
     submit(e) {
         e.preventDefault();
-        axios
-            .post("/login", {
-                email: this.email,
-                password: this.password
-            })
-            .then(({ data }) => {
-                if (data.success) {
-                    console.log("data.success: ", data.success);
-                    location.replace("/");
-                } else {
-                    this.setState({
-                        error: true
-                    });
-                }
-            })
-            .catch(function(err) {
-                console.log("err in axios post: ", err);
-            });
+        axios.post('/login', {
+            xsrfCookieName: 'mytoken',
+            xsrfHeaderName: 'csrf-token',
+            email: this.email,
+            pword: this.pword,
+        }).then(({data}) => {
+            if (data.success) {
+                location.replace('/');
+            } else {
+                this.setState({
+                    error: true
+                });
+            }
+        });
     }
     render() {
         return (
-            <div className="login-comp">
-                {this.state.error && (
-                    <div className="error">Something went wrong!</div>
-                )}
-                <h2>Log in</h2>
-                <form id="loginForm">
-                    <input
-                        name="email"
-                        placeholder="email"
-                        onChange={this.handleChange}
-                    />
-                    <input
-                        name="password"
-                        placeholder="password"
-                        type="password"
-                        onChange={this.handleChange}
-                    />
-                    <button onClick={this.submit}>Log in</button>
-                </form>
-                <p>
-                    Not registered yet? Join <Link to="/"> here</Link>
-                </p>
+            <div className='login'>
+                {this.state.error && <div className='error'>Oops! Try again!</div>}
+                <div className= 'loginForm'>
+                    <div className='form-group'><input name='email' placeholder='Email' onChange={e => this.handleChange(e)}/></div>
+                    <div className='form-group'><input name='pword' placeholder='Password' type='password' onChange={e => this.handleChange(e)}/></div>
+                    <button onClick={e => this.submit(e)}>Login</button>
+                </div>
+                <div className= 'loginLink'>
+                    Don't have an account yet? <Link to="/">Register now</Link>
+                </div>
             </div>
         );
     }

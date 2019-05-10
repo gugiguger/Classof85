@@ -23,16 +23,30 @@ exports.upload = function(req, res, next) {
         "Content-Length": req.file.size,
         "x-amz-acl": "public-read"
     });
-    const stream = fs.createReadStream(req.file.path);
-    stream.pipe(s3Request);
+    //Make the request
+    const readStream = fs.createReadStream(req.file.path);
+    readStream.pipe(s3Request);
 
-    s3Request.on("response", s3Response => {
-        console.log(s3Response.statusCode, req.file.filename);
+    //Wait for a response
+    s3Request.on('response', s3Response => {
+        //If the status code is anything but 200, wasSuccessful would be false
+        const wasSuccessful = s3Response.statusCode == 200;
+        /*
+        AKA
         if (s3Response.statusCode == 200) {
-            next();
-            fs.unlink(req.file.path, () => {});
+            const wasSuccessful = true;
         } else {
-            res.sendStatus(500);
+            const wasSuccessful = false;
         }
+        */
+        // console.log('s3Response.statusCode:', s3Response.statusCode);
+        if (wasSuccessful) {
+            next();
+        } else {
+            res.statusCode(500);
+        }
+        // res.json({ //This is called in index.js, in the app.post('/upload')
+        //     success: wasSuccessful
+        // });
     });
 };
