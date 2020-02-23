@@ -20,7 +20,7 @@ Users are welcomed with a landing page and invited to register or login. They ca
 
 # instructions
 
-you need an AWS account to run the Survivor.
+you need an AWS account to run the app.
 
 1.  clone repository
 
@@ -40,7 +40,7 @@ npm install
 you need PostgreSQL at least version 9 and your system user needs to be able to access the server without a password.
 
 ```bash
-createdb survivor
+createdb socialnetwork
 cd sql
 psql -d classof85 -f users.sql
 psql -d classof85 -f friendships.sql
